@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dream } from "@/lib/types";
 import { DreamList } from "@/components/DreamList";
 import { SearchBar } from "@/components/SearchBar";
-import { Plus, CrystalBall } from "lucide-react";
+import { Plus, RotateCw } from "lucide-react"; // Changed CrystalBall to RotateCw
 import { Link } from "react-router-dom";
 import { DreamHeader } from "@/components/DreamHeader";
 
@@ -59,7 +59,7 @@ const Index = () => {
             className="border-dream-primary text-dream-primary hover:bg-dream-primary/10"
           >
             <Link to="/divination">
-              <CrystalBall className="h-4 w-4 mr-2" />
+              <RotateCw className="h-4 w-4 mr-2" /> {/* Changed CrystalBall to RotateCw */}
               Card Divination
             </Link>
           </Button>

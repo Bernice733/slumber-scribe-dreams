@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { CrystalBall, Star, Moon, Sun, Wand } from "lucide-react";
+import { RotateCw, Star, Moon, Sun, Wand } from "lucide-react";
 
 export interface CaroCardProps {
   name: string;
@@ -14,7 +14,7 @@ export const CaroCard = ({ name, meaning, icon, reversed = false }: CaroCardProp
   const getIcon = () => {
     switch (icon) {
       case 'crystal-ball':
-        return <CrystalBall className="h-8 w-8" />;
+        return <RotateCw className="h-8 w-8" />; // Using RotateCw as a replacement for CrystalBall
       case 'star':
         return <Star className="h-8 w-8" />;
       case 'moon':
