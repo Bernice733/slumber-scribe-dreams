@@ -4,14 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Dream } from "@/lib/types";
 import { DreamList } from "@/components/DreamList";
 import { SearchBar } from "@/components/SearchBar";
-import { Plus, RotateCw } from "lucide-react"; // Changed CrystalBall to RotateCw
+import { Plus, RotateCw } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DreamHeader } from "@/components/DreamHeader";
+import { UserProfile } from "@/components/UserProfile";
+import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/context/AuthContext";
 
 const Index = () => {
   const [dreams, setDreams] = useState<Dream[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     // Load dreams from localStorage
@@ -43,10 +47,13 @@ const Index = () => {
 
   return (
     <div className="container py-8 max-w-7xl mx-auto px-4 sm:px-6">
-      <DreamHeader 
-        title="Dream Journal" 
-        subtitle="Record and explore your subconscious adventures" 
-      />
+      <div className="flex justify-between items-center mb-6">
+        <DreamHeader 
+          title="Dream Journal" 
+          subtitle="Record and explore your subconscious adventures" 
+        />
+        <UserProfile />
+      </div>
       
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
         <div className="w-full sm:w-2/3 md:w-1/2 mb-4 sm:mb-0">
@@ -59,7 +66,7 @@ const Index = () => {
             className="border-dream-primary text-dream-primary hover:bg-dream-primary/10"
           >
             <Link to="/divination">
-              <RotateCw className="h-4 w-4 mr-2" /> {/* Changed CrystalBall to RotateCw */}
+              <RotateCw className="h-4 w-4 mr-2" />
               Card Divination
             </Link>
           </Button>

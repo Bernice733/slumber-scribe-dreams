@@ -7,27 +7,56 @@ import Index from "./pages/Index";
 import NewDream from "./pages/NewDream";
 import DreamDetails from "./pages/DreamDetails";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import { DreamyBackground } from "./components/DreamyBackground";
 import CardDivination from "./pages/CardDivination";
+import { AuthProvider } from "./context/AuthContext";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <DreamyBackground>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/new" element={<NewDream />} />
-            <Route path="/dream/:id" element={<DreamDetails />} />
-            <Route path="/divination" element={<CardDivination />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </DreamyBackground>
+      <AuthProvider>
+        <DreamyBackground>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              {/* Auth Routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              
+              {/* Protected Routes */}
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/new" element={
+                <ProtectedRoute>
+                  <NewDream />
+                </ProtectedRoute>
+              } />
+              <Route path="/dream/:id" element={
+                <ProtectedRoute>
+                  <DreamDetails />
+                </ProtectedRoute>
+              } />
+              <Route path="/divination" element={
+                <ProtectedRoute>
+                  <CardDivination />
+                </ProtectedRoute>
+              } />
+              
+              {/* 404 Route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </DreamyBackground>
+      </AuthProvider>
     </QueryClientProvider>
   );
 };
