@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Dream } from "@/lib/types";
 import { DreamForm } from "@/components/DreamForm";
 import { useToast } from "@/components/ui/use-toast";
+import { DreamHeader } from "@/components/DreamHeader";
 
 const NewDream = () => {
   const { toast } = useToast();
@@ -36,7 +37,10 @@ const NewDream = () => {
 
   return (
     <div className="container max-w-2xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Record New Dream</h1>
+      <DreamHeader 
+        title="Record New Dream" 
+        subtitle="Capture your dream journey and explore your subconscious mind" 
+      />
       <DreamForm onSaveDream={handleSaveDream} />
     </div>
   );

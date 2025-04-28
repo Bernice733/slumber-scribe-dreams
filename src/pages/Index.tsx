@@ -6,6 +6,7 @@ import { DreamList } from "@/components/DreamList";
 import { SearchBar } from "@/components/SearchBar";
 import { Plus } from "lucide-react";
 import { Link } from "react-router-dom";
+import { DreamHeader } from "@/components/DreamHeader";
 
 const Index = () => {
   const [dreams, setDreams] = useState<Dream[]>([]);
@@ -42,18 +43,24 @@ const Index = () => {
 
   return (
     <div className="container py-8 max-w-7xl mx-auto px-4 sm:px-6">
+      <DreamHeader 
+        title="Dream Journal" 
+        subtitle="Record and explore your subconscious adventures" 
+      />
+      
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
-        <h1 className="text-3xl font-bold text-dream-dark">Dream Journal</h1>
-        <Button asChild className="mt-4 sm:mt-0">
+        <div className="w-full sm:w-2/3 md:w-1/2 mb-4 sm:mb-0">
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        </div>
+        <Button 
+          asChild 
+          className="bg-dream-primary hover:bg-dream-primary/90 transition-all"
+        >
           <Link to="/new">
             <Plus className="h-4 w-4 mr-2" />
             New Dream
           </Link>
         </Button>
-      </div>
-
-      <div className="mb-6">
-        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
 
       {isLoading ? (

@@ -4,8 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Dream } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { ArrowLeft, Calendar, Trash2, Edit } from "lucide-react";
+import { ArrowLeft, Calendar, Trash2, Edit, Moon, Star } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { Card, CardContent } from "@/components/ui/card";
 
 const DreamDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -97,53 +98,58 @@ const DreamDetails = () => {
       <Button 
         variant="ghost" 
         onClick={() => navigate("/")} 
-        className="mb-6"
+        className="mb-6 hover:bg-dream-muted/30"
       >
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to Journal
       </Button>
 
-      <div className="bg-card rounded-lg shadow-sm p-6 mb-6 border border-dream-muted">
-        <div className="flex justify-between items-start mb-4">
-          <h1 className="text-2xl font-bold">{dream.title}</h1>
-          <div className="flex items-center text-muted-foreground">
-            <Calendar className="h-4 w-4 mr-1" />
-            {format(new Date(dream.date), "MMMM d, yyyy")}
+      <Card className="bg-card/80 backdrop-blur-sm border-dream-muted/50 shadow-md overflow-hidden">
+        {dream.isLucid && (
+          <div className="bg-dream-primary/20 py-2 px-4 text-center text-sm font-medium flex items-center justify-center border-b border-dream-primary/30">
+            <Star className="h-4 w-4 text-dream-primary mr-1.5" />
+            Lucid Dream
           </div>
-        </div>
+        )}
+        <CardContent className="p-6">
+          <div className="flex justify-between items-start mb-6">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-dream-primary to-dream-tertiary bg-clip-text text-transparent">
+              {dream.title}
+            </h1>
+            <div className="flex items-center text-muted-foreground bg-dream-muted/30 px-3 py-1 rounded-full text-sm">
+              <Calendar className="h-4 w-4 mr-1.5 text-dream-primary" />
+              {format(new Date(dream.date), "MMMM d, yyyy")}
+            </div>
+          </div>
 
-        <div className="flex flex-wrap my-4">
-          {dream.tags.map((tag) => (
-            <span key={tag} className="dream-tag">
-              {tag}
+          <div className="flex flex-wrap my-5">
+            {dream.tags.map((tag) => (
+              <span key={tag} className="dream-tag">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex items-center mb-6">
+            <span className="px-3 py-1 rounded-full bg-dream-secondary/20 text-dream-secondary text-sm flex items-center">
+              <Moon className="h-3.5 w-3.5 mr-1.5" />
+              Mood: {dream.mood.charAt(0).toUpperCase() + dream.mood.slice(1)}
             </span>
-          ))}
-        </div>
+          </div>
 
-        <div className="flex items-center space-x-4 mb-6">
-          <span className="px-3 py-1 rounded-full bg-dream-secondary/20 text-dream-secondary text-sm">
-            Mood: {dream.mood.charAt(0).toUpperCase() + dream.mood.slice(1)}
-          </span>
-          {dream.isLucid && (
-            <span className="px-3 py-1 rounded-full bg-dream-primary/20 text-dream-primary text-sm">
-              Lucid Dream
-            </span>
-          )}
-        </div>
+          <div className="border-t border-dream-muted/30 pt-5">
+            <p className="whitespace-pre-wrap text-muted-foreground leading-relaxed">
+              {dream.description}
+            </p>
+          </div>
+        </CardContent>
+      </Card>
 
-        <div className="border-t border-dream-muted pt-4">
-          <p className="whitespace-pre-wrap text-muted-foreground">
-            {dream.description}
-          </p>
-        </div>
-      </div>
-
-      <div className="flex justify-end space-x-2">
-        <Button variant="outline" className="text-destructive" onClick={handleDelete}>
+      <div className="flex justify-end space-x-2 mt-6">
+        <Button variant="outline" className="text-destructive border-destructive/30 hover:bg-destructive/10" onClick={handleDelete}>
           <Trash2 className="h-4 w-4 mr-2" />
           Delete
         </Button>
-        {/* Edit functionality would be added in a future enhancement */}
       </div>
     </div>
   );
