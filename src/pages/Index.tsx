@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dream } from "@/lib/types";
 import { DreamList } from "@/components/DreamList";
 import { SearchBar } from "@/components/SearchBar";
-import { Plus } from "lucide-react";
+import { Plus, CrystalBall } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DreamHeader } from "@/components/DreamHeader";
 
@@ -52,15 +52,27 @@ const Index = () => {
         <div className="w-full sm:w-2/3 md:w-1/2 mb-4 sm:mb-0">
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </div>
-        <Button 
-          asChild 
-          className="bg-dream-primary hover:bg-dream-primary/90 transition-all"
-        >
-          <Link to="/new">
-            <Plus className="h-4 w-4 mr-2" />
-            New Dream
-          </Link>
-        </Button>
+        <div className="flex space-x-3">
+          <Button 
+            asChild 
+            variant="outline"
+            className="border-dream-primary text-dream-primary hover:bg-dream-primary/10"
+          >
+            <Link to="/divination">
+              <CrystalBall className="h-4 w-4 mr-2" />
+              Card Divination
+            </Link>
+          </Button>
+          <Button 
+            asChild 
+            className="bg-dream-primary hover:bg-dream-primary/90 transition-all"
+          >
+            <Link to="/new">
+              <Plus className="h-4 w-4 mr-2" />
+              New Dream
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {isLoading ? (

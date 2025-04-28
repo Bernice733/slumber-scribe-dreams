@@ -8,6 +8,7 @@ import NewDream from "./pages/NewDream";
 import DreamDetails from "./pages/DreamDetails";
 import NotFound from "./pages/NotFound";
 import { DreamyBackground } from "./components/DreamyBackground";
+import CardDivination from "./pages/CardDivination";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/new" element={<NewDream />} />
             <Route path="/dream/:id" element={<DreamDetails />} />
+            <Route path="/divination" element={<CardDivination />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
