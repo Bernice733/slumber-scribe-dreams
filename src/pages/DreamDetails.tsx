@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { ArrowLeft, Calendar, Trash2, Edit, Moon, Star } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Card, CardContent } from "@/components/ui/card";
+import { CornerDecoration, FloatingStars } from "@/components/illustrations/DreamIllustrations";
 
 const DreamDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -94,7 +95,9 @@ const DreamDetails = () => {
   }
 
   return (
-    <div className="container max-w-3xl mx-auto px-4 py-8 animate-fade-in">
+    <div className="container max-w-3xl mx-auto px-4 py-8 animate-fade-in relative">
+      <FloatingStars className="top-10 right-10" />
+      
       <Button 
         variant="ghost" 
         onClick={() => navigate("/")} 
@@ -104,7 +107,12 @@ const DreamDetails = () => {
         Back to Journal
       </Button>
 
-      <Card className="bg-card/80 backdrop-blur-sm border-dream-muted/50 shadow-md overflow-hidden">
+      <Card className="bg-card/80 backdrop-blur-sm border-dream-muted/50 shadow-md overflow-hidden relative">
+        <CornerDecoration position="top-left" className="opacity-50" />
+        <CornerDecoration position="top-right" className="opacity-50" />
+        <CornerDecoration position="bottom-left" className="opacity-50" />
+        <CornerDecoration position="bottom-right" className="opacity-50" />
+        
         {dream.isLucid && (
           <div className="bg-dream-primary/20 py-2 px-4 text-center text-sm font-medium flex items-center justify-center border-b border-dream-primary/30">
             <Star className="h-4 w-4 text-dream-primary mr-1.5" />

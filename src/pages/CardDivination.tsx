@@ -6,6 +6,7 @@ import { CaroCard, CaroCardProps } from "@/components/CaroCard";
 import { getRandomCards } from "@/lib/divination-data";
 import { useToast } from "@/components/ui/use-toast";
 import { Link } from "react-router-dom";
+import { FloatingStars, TarotDecoration, DreamCatcher, CloudsIllustration } from "@/components/illustrations/DreamIllustrations";
 
 const CardDivination = () => {
   const [cards, setCards] = useState<CaroCardProps[]>([]);
@@ -31,14 +32,29 @@ const CardDivination = () => {
   };
 
   return (
-    <div className="container py-8 max-w-7xl mx-auto px-4 sm:px-6">
+    <div className="container py-8 max-w-7xl mx-auto px-4 sm:px-6 relative">
+      <FloatingStars className="absolute top-10 right-10" />
+      <FloatingStars className="absolute bottom-10 left-10" />
+      
       <DreamHeader 
         title="Caro Card Divination" 
         subtitle="Explore the hidden meanings of your dreams through mystical cards" 
       />
       
-      <div className="mb-6 text-center">
-        <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+      <div className="mb-6 text-center relative">
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 opacity-50">
+          <CloudsIllustration className="h-16" />
+        </div>
+        
+        <div className="absolute top-0 left-0 opacity-30">
+          <DreamCatcher className="h-16" />
+        </div>
+        
+        <div className="absolute top-0 right-0 opacity-30">
+          <DreamCatcher className="h-16" />
+        </div>
+        
+        <p className="text-muted-foreground max-w-2xl mx-auto mb-8 pt-12">
           Think about a recent dream you've had, or a question you want insights on. 
           Draw three cards and reflect on how their meanings connect to your dreams.
         </p>
@@ -63,7 +79,13 @@ const CardDivination = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-6 mb-12">
+      <div className="flex flex-wrap justify-center gap-6 mb-12 relative">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10 scale-150">
+          <DreamCatcher className="w-full h-full" />
+        </div>
+        
+        <TarotDecoration className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-full max-w-3xl" />
+        
         {cards.length > 0 ? (
           cards.map((card, index) => (
             <div 

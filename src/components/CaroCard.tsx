@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { RotateCw, Star, Moon, Sun, Wand } from "lucide-react";
+import { CardSymbols } from "./illustrations/DreamIllustrations";
 
 export interface CaroCardProps {
   name: string;
@@ -28,7 +29,14 @@ export const CaroCard = ({ name, meaning, icon, reversed = false }: CaroCardProp
 
   return (
     <Card className={`relative w-64 h-96 bg-gradient-to-br from-purple-100 to-blue-50 dark:from-purple-900/30 dark:to-blue-900/20 border-2 border-purple-200/50 dark:border-purple-700/50 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-105 ${reversed ? 'rotate-180' : ''}`}>
-      <CardContent className="flex flex-col items-center justify-between h-full p-6 text-center">
+      <div className="absolute -left-6 -top-6 opacity-20">
+        <CardSymbols type={icon} className="w-24 h-24" />
+      </div>
+      <div className="absolute -right-6 -bottom-6 opacity-20">
+        <CardSymbols type={icon} className="w-24 h-24" />
+      </div>
+      
+      <CardContent className="flex flex-col items-center justify-between h-full p-6 text-center relative z-10">
         <div className={`w-12 h-12 rounded-full bg-dream-primary/10 flex items-center justify-center mb-4 ${reversed ? 'rotate-180' : ''}`}>
           {getIcon()}
         </div>
