@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { LogOut, User as UserIcon } from "lucide-react";
+import { LogOut, User as UserIcon, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -50,6 +50,13 @@ export const UserProfile = () => {
           </div>
         </div>
         <DropdownMenuSeparator />
+        <DropdownMenuItem 
+          onClick={() => navigate("/settings")}
+          className="cursor-pointer"
+        >
+          <Settings className="w-4 h-4 mr-2" />
+          Settings
+        </DropdownMenuItem>
         <DropdownMenuItem 
           onClick={handleSignOut}
           disabled={isLoading}

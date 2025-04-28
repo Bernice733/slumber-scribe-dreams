@@ -9,6 +9,7 @@ import DreamDetails from "./pages/DreamDetails";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Settings from "./pages/Settings";
 import { DreamyBackground } from "./components/DreamyBackground";
 import CardDivination from "./pages/CardDivination";
 import { AuthProvider } from "./context/AuthContext";
@@ -48,6 +49,11 @@ const App = () => {
               <Route path="/divination" element={
                 <ProtectedRoute>
                   <CardDivination />
+                </ProtectedRoute>
+              } />
+              <Route path="/settings" element={
+                <ProtectedRoute>
+                  <Settings />
                 </ProtectedRoute>
               } />
               
