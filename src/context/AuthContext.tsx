@@ -1,6 +1,6 @@
 
 import { createContext, useState, useEffect, useContext } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import type { User } from '@supabase/supabase-js';
 import { toast } from 'sonner';
 
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(user);
       } catch (error) {
         console.error('Error getting user:', error);
-        toast.error('Failed to connect to authentication service. Please check your Supabase configuration.');
+        toast.error('Failed to connect to authentication service.');
       } finally {
         setIsLoading(false);
       }
