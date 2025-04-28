@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dream } from "@/lib/types";
@@ -8,7 +7,7 @@ import { Plus, RotateCw } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DreamHeader } from "@/components/DreamHeader";
 import { UserProfile } from "@/components/UserProfile";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/context/AuthContext";
 
 const Index = () => {
@@ -18,7 +17,6 @@ const Index = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    // Load dreams from localStorage
     const loadDreams = () => {
       const savedDreams = localStorage.getItem("dreams");
       if (savedDreams) {
@@ -40,7 +38,6 @@ const Index = () => {
     );
   });
 
-  // Sort dreams by date (most recent first)
   const sortedDreams = [...filteredDreams].sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
