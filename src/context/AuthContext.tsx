@@ -2,6 +2,7 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import { supabase } from '@/lib/supabase';
 import type { User } from '@supabase/supabase-js';
+import { toast } from 'sonner';
 
 type AuthContextType = {
   user: User | null;
@@ -27,6 +28,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(user);
       } catch (error) {
         console.error('Error getting user:', error);
+        toast.error('Failed to connect to authentication service. Please check your Supabase configuration.');
       } finally {
         setIsLoading(false);
       }
@@ -53,6 +55,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(null);
     } catch (error) {
       console.error('Error signing out:', error);
+      toast.error('Failed to sign out. Please try again later.');
     }
   };
 
