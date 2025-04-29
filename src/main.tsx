@@ -3,12 +3,17 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
+console.log("Application starting...");
+
 // Wait for device ready when in Capacitor environment
 document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM content loaded");
+  
   // Enable smooth scrolling for iOS
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
   
   if (isIOS) {
+    console.log("iOS device detected, applying iOS-specific settings");
     // Add iOS-specific classes to body
     document.body.classList.add('ios-device');
     
@@ -37,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Create and render the app root
   const rootElement = document.getElementById("root");
   if (rootElement) {
+    console.log("Rendering app to root element");
     createRoot(rootElement).render(<App />);
   } else {
     console.error("Root element not found");

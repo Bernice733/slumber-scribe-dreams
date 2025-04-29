@@ -28,6 +28,15 @@ const queryClient = new QueryClient({
 const App = () => {
   // Handle mobile app specific setup
   useEffect(() => {
+    console.log("App initializing...");
+    const isNativePlatform = window.location.href.includes('capacitor://');
+    
+    if (isNativePlatform) {
+      console.log("Running in native mobile context");
+    } else {
+      console.log("Running in web browser context");
+    }
+    
     // Set viewport height for mobile devices to handle iOS safari address bar
     const setViewportHeight = () => {
       const vh = window.innerHeight * 0.01;
@@ -37,6 +46,7 @@ const App = () => {
     // Add iOS specific class to body for styling
     if (isPlatformiOS()) {
       document.body.classList.add('ios-device');
+      console.log("iOS platform detected");
     }
 
     // Add status bar padding for iOS devices
@@ -54,10 +64,15 @@ const App = () => {
       document.documentElement.style.setProperty(
         '--sal', 'env(safe-area-inset-left)'
       );
+      console.log("iOS safe areas configured");
     }
 
     setViewportHeight();
     window.addEventListener('resize', setViewportHeight);
+    
+    // Log initial configuration for debugging
+    console.log("Initial viewport height set");
+    console.log("App initialization complete");
     
     return () => window.removeEventListener('resize', setViewportHeight);
   }, []);

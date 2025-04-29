@@ -11,10 +11,18 @@ const Login = () => {
   const location = useLocation();
   
   useEffect(() => {
+    console.log("Login page mounted, checking auth state");
+    
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        navigate("/");
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        console.log("Auth check result:", user ? "User logged in" : "No user");
+        if (user) {
+          const from = location.state?.from || "/";
+          navigate(from);
+        }
+      } catch (error) {
+        console.error("Error checking user:", error);
       }
     };
     
@@ -23,8 +31,13 @@ const Login = () => {
     const verificationSuccess = queryParams.get('verified') === 'true';
     
     if (verificationSuccess) {
+      console.log("Email verification detected in URL");
       toast.success("Email verified successfully! Please log in.");
-      window.history.replaceState({}, document.title, window.location.pathname);
+      
+      // Clean up URL parameters without triggering navigation
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.delete('verified');
+      window.history.replaceState({}, document.title, currentUrl.toString());
     }
     
     checkUser();

@@ -39,6 +39,8 @@ export const RegisterForm = () => {
   const onSubmit = async (values: FormValues) => {
     setIsLoading(true);
     try {
+      console.log("Registration initiated");
+      
       // Get the site URL for redirect
       const isPlatformiOS = () => {
         const userAgent = window.navigator.userAgent.toLowerCase();
@@ -49,12 +51,16 @@ export const RegisterForm = () => {
       const siteUrl = window.location.origin;
       const redirectPath = "/login?verified=true";
       
+      // For mobile apps (capacitor), we need to use the app scheme
+      let redirectUrl = `${siteUrl}${redirectPath}`;
+      
+      console.log("Using redirect URL:", redirectUrl);
+      
       const { error } = await supabase.auth.signUp({
         email: values.email,
         password: values.password,
         options: {
-          // Use a simpler redirect for better cross-platform compatibility
-          emailRedirectTo: `${siteUrl}${redirectPath}`,
+          emailRedirectTo: redirectUrl,
         }
       });
 
@@ -62,9 +68,11 @@ export const RegisterForm = () => {
         throw error;
       }
 
+      console.log("Registration successful, redirecting to login");
       toast.success("Registration successful! Please check your email to verify your account.");
       navigate("/login");
     } catch (error: any) {
+      console.error("Registration error:", error);
       toast.error(error.message || "Failed to register");
     } finally {
       setIsLoading(false);
