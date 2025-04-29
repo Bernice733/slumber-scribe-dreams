@@ -85,7 +85,6 @@
   
   body {
     position: static;
-    -webkit-overflow-scrolling: touch;
     height: 100vh; 
     height: calc(var(--vh, 1vh) * 100);
     margin: 0;
@@ -127,6 +126,10 @@
     overflow-y: auto;
     width: 100%;
     flex: 1;
+  }
+  
+  .pb-safe {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
   }
 }
 

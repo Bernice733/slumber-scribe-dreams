@@ -22,14 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setViewportHeight();
     window.addEventListener('resize', setViewportHeight);
     
-    // Use type assertion to fix the TypeScript error
-    (document.body.style as any).WebkitOverflowScrolling = 'touch';
+    // Apply WebkitOverflowScrolling to body
+    document.body.style.setProperty('-webkit-overflow-scrolling', 'touch');
     
     // Prevent scroll blocking
     document.addEventListener('touchmove', function(event) {
-      // Allow default scroll behavior
       if ((event.target as HTMLElement).closest('.scroll-container, .ios-scroll-container')) {
-        event.stopPropagation();
+        // Allow default scroll behavior
+        return true;
       }
     }, { passive: true });
   }
