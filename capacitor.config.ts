@@ -24,6 +24,11 @@ const config: CapacitorConfig = {
     appendUserAgent: "dream-journal-ios",
     webviewPrefersPlainText: false
   },
+  android: {
+    backgroundColor: "#ffffff",
+    allowsBackForwardNavigationGestures: true,
+    appendUserAgent: "dream-journal-android"
+  },
   plugins: {
     SplashScreen: {
       launchAutoHide: true,

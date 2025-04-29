@@ -6,5 +6,10 @@ import './index.css'
 // Wait for device ready when in Capacitor environment
 document.addEventListener('DOMContentLoaded', () => {
   // Create and render the app root
-  createRoot(document.getElementById("root")!).render(<App />);
+  const rootElement = document.getElementById("root");
+  if (rootElement) {
+    createRoot(rootElement).render(<App />);
+  } else {
+    console.error("Root element not found");
+  }
 });
