@@ -16,7 +16,23 @@ const config: CapacitorConfig = {
     contentInset: 'automatic',
     allowsLinkPreview: true,
     scrollEnabled: true,
-    preferredContentMode: 'mobile'
+    preferredContentMode: 'mobile',
+    // Adding more iOS settings for better compatibility
+    backgroundColor: "#ffffff",
+    allowsBackForwardNavigationGestures: true,
+    overrideUserAgent: null,
+    appendUserAgent: "slumber-scribe-dreams-ios",
+    webviewPrefersPlainText: false
+  },
+  plugins: {
+    SplashScreen: {
+      launchAutoHide: true,
+      showSpinner: true,
+      androidSpinnerStyle: "large",
+      spinnerColor: "#6366f1",
+      splashFullScreen: true,
+      splashImmersive: true
+    }
   }
 };
 

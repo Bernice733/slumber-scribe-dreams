@@ -4,7 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { LogOut, User as UserIcon, Settings } from "lucide-react";
+import { LogOut, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -31,11 +31,20 @@ export const UserProfile = () => {
 
   const userInitial = user.email ? user.email[0].toUpperCase() : "U";
   const userEmail = user.email || "User";
+  
+  // Detect if we're on iOS for specific styling
+  const isIOS = typeof window !== 'undefined' && 
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && 
+    !(window as any).MSStream;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+        <Button 
+          variant="ghost" 
+          className={`relative h-10 w-10 rounded-full ${isIOS ? 'ios-touch-target' : ''}`}
+          aria-label="User profile"
+        >
           <Avatar className="h-10 w-10 border border-dream-primary/20">
             <AvatarFallback className="bg-dream-primary/10 text-dream-primary">
               {userInitial}
@@ -60,7 +69,7 @@ export const UserProfile = () => {
         <DropdownMenuItem 
           onClick={handleSignOut}
           disabled={isLoading}
-          className="text-red-600 cursor-pointer"
+          className="text-red-600 cursor-pointer focus:text-red-700"
         >
           <LogOut className="w-4 h-4 mr-2" />
           {isLoading ? "Signing out..." : "Sign Out"}

@@ -16,7 +16,14 @@ import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { useEffect } from "react";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
   // Handle mobile app specific setup
@@ -26,6 +33,11 @@ const App = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     };
+
+    // Add iOS specific class to body for styling
+    if (isPlatformiOS()) {
+      document.body.classList.add('ios-device');
+    }
 
     setViewportHeight();
     window.addEventListener('resize', setViewportHeight);
@@ -38,7 +50,7 @@ const App = () => {
       <AuthProvider>
         <DreamyBackground>
           <Toaster />
-          <Sonner />
+          <Sonner position="top-center" />
           <BrowserRouter>
             <Routes>
               {/* Auth Routes */}
@@ -80,6 +92,12 @@ const App = () => {
       </AuthProvider>
     </QueryClientProvider>
   );
+};
+
+// Helper to detect iOS platform
+const isPlatformiOS = () => {
+  const userAgent = window.navigator.userAgent.toLowerCase();
+  return /iphone|ipad|ipod/.test(userAgent);
 };
 
 export default App;
