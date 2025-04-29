@@ -13,9 +13,9 @@ const config: CapacitorConfig = {
   ios: {
     // Adding iOS-specific configuration
     limitsNavigationsToAppBoundDomains: true,
-    contentInset: 'automatic',
+    contentInset: 'scrollable', // Changed from 'automatic' to 'scrollable'
     allowsLinkPreview: true,
-    scrollEnabled: true,
+    scrollEnabled: true, // Explicitly enabling scroll
     preferredContentMode: 'mobile',
     // Adding more iOS settings for better compatibility
     backgroundColor: "#ffffff",

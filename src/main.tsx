@@ -5,6 +5,21 @@ import './index.css'
 
 // Wait for device ready when in Capacitor environment
 document.addEventListener('DOMContentLoaded', () => {
+  // Enable smooth scrolling for iOS
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+  if (isIOS) {
+    // Add iOS-specific scroll handling
+    document.body.style.WebkitOverflowScrolling = 'touch';
+    
+    // Prevent scroll blocking
+    document.addEventListener('touchmove', function(event) {
+      // Allow default scroll behavior
+      if ((event.target as HTMLElement).closest('.scroll-container')) {
+        event.stopPropagation();
+      }
+    }, { passive: true });
+  }
+
   // Create and render the app root
   const rootElement = document.getElementById("root");
   if (rootElement) {
