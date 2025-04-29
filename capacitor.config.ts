@@ -29,9 +29,13 @@ const config: CapacitorConfig = {
       launchAutoHide: true,
       showSpinner: true,
       androidSpinnerStyle: "large",
-      spinnerColor: "#6366f1",
+      spinnerColor: "#9b87f5", // Using dream-primary color
       splashFullScreen: true,
-      splashImmersive: true
+      splashImmersive: true,
+      backgroundColor: "#ffffff",
+      androidSplashResourceName: "splash", // For Android
+      iosSpinnerStyle: "large", // For iOS
+      layoutName: "launch_screen" // For iOS
     }
   }
 };
