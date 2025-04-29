@@ -39,6 +39,23 @@ const App = () => {
       document.body.classList.add('ios-device');
     }
 
+    // Add status bar padding for iOS devices
+    if (isPlatformiOS()) {
+      document.body.classList.add('has-safe-area');
+      document.documentElement.style.setProperty(
+        '--sat', 'env(safe-area-inset-top)'
+      );
+      document.documentElement.style.setProperty(
+        '--sar', 'env(safe-area-inset-right)'
+      );
+      document.documentElement.style.setProperty(
+        '--sab', 'env(safe-area-inset-bottom)'
+      );
+      document.documentElement.style.setProperty(
+        '--sal', 'env(safe-area-inset-left)'
+      );
+    }
+
     setViewportHeight();
     window.addEventListener('resize', setViewportHeight);
     
