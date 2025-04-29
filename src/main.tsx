@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
   if (isIOS) {
     // Add iOS-specific scroll handling
-    document.body.style.WebkitOverflowScrolling = 'touch';
+    // Use type assertion to fix the TypeScript error
+    (document.body.style as any).WebkitOverflowScrolling = 'touch';
     
     // Prevent scroll blocking
     document.addEventListener('touchmove', function(event) {
