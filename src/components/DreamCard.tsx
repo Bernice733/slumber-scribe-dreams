@@ -1,4 +1,3 @@
-
 import { Dream } from "@/lib/types";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Calendar, Moon, Star } from "lucide-react";
@@ -21,7 +20,9 @@ export const DreamCard = ({ dream }: DreamCardProps) => {
         )}
         <CardHeader className="pb-2">
           <div className="flex justify-between items-start">
-            <h3 className="text-lg font-medium truncate text-foreground">{dream.title}</h3>
+            <h3 className="text-lg font-medium truncate text-foreground">
+              {dream.title}
+            </h3>
             <div className="flex items-center text-muted-foreground text-xs">
               <Calendar className="h-3 w-3 mr-1 text-dream-primary" />
               {format(new Date(dream.date), "MMM d, yyyy")}
@@ -29,7 +30,10 @@ export const DreamCard = ({ dream }: DreamCardProps) => {
           </div>
           <div className="flex flex-wrap mt-1.5 gap-1">
             {dream.tags.slice(0, 3).map((tag) => (
-              <span key={tag} className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-dream-muted text-dream-tertiary">
+              <span
+                key={tag}
+                className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-dream-muted text-dream-tertiary"
+              >
                 {tag}
               </span>
             ))}
