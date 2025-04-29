@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate, Link } from "react-router-dom";
-import { Moon } from "lucide-react";
+import { MoonStar } from "lucide-react";
 import { toast } from "sonner";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -22,6 +22,17 @@ type FormValues = z.infer<typeof formSchema>;
 export const LoginForm = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  
+  // Check for verification success message in URL
+  const queryParams = new URLSearchParams(window.location.search);
+  const verificationSuccess = queryParams.get('verified') === 'true';
+  
+  // Show toast if verification was successful
+  if (verificationSuccess) {
+    toast.success("Email verified successfully! Please log in.");
+    // Clear the URL parameter after showing toast
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -43,10 +54,10 @@ export const LoginForm = () => {
         throw error;
       }
 
-      toast.success("Successfully signed in");
+      toast.success("Logged in successfully!");
       navigate("/");
     } catch (error: any) {
-      toast.error(error.message || "Failed to sign in");
+      toast.error(error.message || "Failed to log in");
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +67,7 @@ export const LoginForm = () => {
     <div className="space-y-6">
       <div className="flex flex-col items-center space-y-2 text-center">
         <div className="bg-dream-muted p-3 rounded-full inline-flex">
-          <Moon className="h-6 w-6 text-dream-primary" />
+          <MoonStar className="h-6 w-6 text-dream-primary" />
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
         <p className="text-sm text-muted-foreground">Enter your credentials to access your dreams</p>
@@ -91,16 +102,16 @@ export const LoginForm = () => {
             )}
           />
           <Button type="submit" className="w-full bg-dream-primary hover:bg-dream-primary/90" disabled={isLoading}>
-            {isLoading ? "Signing in..." : "Sign In"}
+            {isLoading ? "Logging in..." : "Log in"}
           </Button>
         </form>
       </Form>
 
       <div className="text-center text-sm">
         <p className="text-muted-foreground">
-          Don't have an account?{" "}
+          Don't have an account yet?{" "}
           <Link to="/register" className="text-dream-primary hover:underline">
-            Register
+            Sign Up
           </Link>
         </p>
       </div>

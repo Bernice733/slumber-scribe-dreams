@@ -39,16 +39,22 @@ export const RegisterForm = () => {
   const onSubmit = async (values: FormValues) => {
     setIsLoading(true);
     try {
+      // Get the site URL from the window location for redirect
+      const siteUrl = window.location.origin;
+      
       const { error } = await supabase.auth.signUp({
         email: values.email,
         password: values.password,
+        options: {
+          emailRedirectTo: `${siteUrl}/login?verified=true`,
+        }
       });
 
       if (error) {
         throw error;
       }
 
-      toast.success("Registration successful! Please verify your email.");
+      toast.success("Registration successful! Please check your email to verify your account.");
       navigate("/login");
     } catch (error: any) {
       toast.error(error.message || "Failed to register");
