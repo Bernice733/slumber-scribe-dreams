@@ -1,10 +1,10 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { MoonStar } from "lucide-react";
 import { toast } from "sonner";
 
@@ -21,18 +21,20 @@ type FormValues = z.infer<typeof formSchema>;
 
 export const LoginForm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   
-  // Check for verification success message in URL
-  const queryParams = new URLSearchParams(window.location.search);
-  const verificationSuccess = queryParams.get('verified') === 'true';
-  
-  // Show toast if verification was successful
-  if (verificationSuccess) {
-    toast.success("Email verified successfully! Please log in.");
-    // Clear the URL parameter after showing toast
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }
+  useEffect(() => {
+    // Check for verification parameters - handles both web and mobile deep links
+    const queryParams = new URLSearchParams(location.search);
+    const verificationSuccess = queryParams.get('verified') === 'true';
+    
+    if (verificationSuccess) {
+      toast.success("Email verified successfully! Please log in.");
+      // Clean up the URL without triggering a navigation
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, [location]);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),

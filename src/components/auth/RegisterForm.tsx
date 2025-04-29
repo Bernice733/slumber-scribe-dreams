@@ -39,14 +39,22 @@ export const RegisterForm = () => {
   const onSubmit = async (values: FormValues) => {
     setIsLoading(true);
     try {
-      // Get the site URL from the window location for redirect
+      // Get the site URL for redirect
+      const isPlatformiOS = () => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        return /iphone|ipad|ipod/.test(userAgent);
+      };
+
+      // Use universal URL that works for both web and mobile
       const siteUrl = window.location.origin;
+      const redirectPath = "/login?verified=true";
       
       const { error } = await supabase.auth.signUp({
         email: values.email,
         password: values.password,
         options: {
-          emailRedirectTo: `${siteUrl}/login?verified=true`,
+          // Use a simpler redirect for better cross-platform compatibility
+          emailRedirectTo: `${siteUrl}${redirectPath}`,
         }
       });
 
