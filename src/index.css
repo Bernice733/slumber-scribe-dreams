@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -77,25 +76,32 @@
     @apply border-border;
   }
 
-  body {
+  html, body {
     @apply bg-background text-foreground;
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-    overscroll-behavior: none;
-    -webkit-overflow-scrolling: touch; /* Enhanced iOS scrolling */
-    position: fixed; /* Changed from static */
-    width: 100%;
     height: 100%;
-    overflow-y: auto; /* Allow vertical scrolling */
+    width: 100%;
+    overscroll-behavior: none;
+  }
+  
+  body {
+    position: static;
+    -webkit-overflow-scrolling: touch;
+    height: 100vh; 
+    height: calc(var(--vh, 1vh) * 100);
+    margin: 0;
+    padding: 0;
+  }
+  
+  #root {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
   }
   
   .ios-device {
-    /* Improved iOS scrolling */
-    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    overflow-y: auto;
   }
   
   .has-safe-area {
@@ -105,17 +111,22 @@
     padding-left: var(--sal);
   }
   
-  /* Touch targets for iOS */
   .ios-touch-target {
     min-height: 44px;
     min-width: 44px;
   }
   
-  /* Add scroll container class for proper scrolling */
   .scroll-container {
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
     height: 100%;
+  }
+
+  .ios-scroll-container {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    width: 100%;
+    flex: 1;
   }
 }
 

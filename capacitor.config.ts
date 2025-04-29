@@ -11,18 +11,20 @@ const config: CapacitorConfig = {
   },
   bundledWebRuntime: false,
   ios: {
-    // Adding iOS-specific configuration
+    // iOS-specific configuration for better scrolling
     limitsNavigationsToAppBoundDomains: true,
-    contentInset: 'scrollable', // Changed from 'automatic' to 'scrollable'
+    contentInset: 'scrollable',
     allowsLinkPreview: true,
-    scrollEnabled: true, // Explicitly enabling scroll
+    scrollEnabled: true,
     preferredContentMode: 'mobile',
-    // Adding more iOS settings for better compatibility
+    // Additional settings for better iOS experience
     backgroundColor: "#ffffff",
     allowsBackForwardNavigationGestures: true,
     overrideUserAgent: null,
     appendUserAgent: "dream-journal-ios",
-    webviewPrefersPlainText: false
+    webviewPrefersPlainText: false,
+    // Force user scalable to support zoom behavior
+    userScalable: true
   },
   android: {
     backgroundColor: "#ffffff",
