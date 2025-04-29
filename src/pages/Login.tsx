@@ -11,7 +11,7 @@ const Login = () => {
   const location = useLocation();
   
   useEffect(() => {
-    console.log("Login page mounted, checking auth state");
+    console.log("Login page mounted, checking auth state and params:", location.search);
     
     const checkUser = async () => {
       try {
@@ -26,7 +26,7 @@ const Login = () => {
       }
     };
     
-    // Handle potential deep link verification
+    // Handle potential verification from both query params and deep links
     const queryParams = new URLSearchParams(location.search);
     const verificationSuccess = queryParams.get('verified') === 'true';
     
@@ -40,6 +40,16 @@ const Login = () => {
       window.history.replaceState({}, document.title, currentUrl.toString());
     }
     
+    // Handle potential deep link verification on mobile
+    const handleMobileDeepLinks = () => {
+      // This helps with Capacitor deep links
+      if (window.location.href.includes('verified=true')) {
+        console.log("Email verification detected in deep link");
+        toast.success("Email verified successfully! Please log in.");
+      }
+    };
+    
+    handleMobileDeepLinks();
     checkUser();
   }, [navigate, location]);
 

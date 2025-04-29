@@ -9,6 +9,15 @@ console.log("Application starting...");
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM content loaded");
   
+  // Detect if we're running in a mobile context
+  const isNativeMobile = window.location.href.includes('capacitor://');
+  if (isNativeMobile) {
+    console.log("Running in native mobile context");
+    document.body.classList.add('mobile-app');
+  } else {
+    console.log("Running in web browser context");
+  }
+  
   // Enable smooth scrolling for iOS
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
   
